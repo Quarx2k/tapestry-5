@@ -44,6 +44,8 @@ import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
 import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 
+import javax.persistence.metamodel.EntityType;
+
 /**
  * Supplements the services defined by {@link org.apache.tapestry5.hibernate.modules.HibernateCoreModule} with additional
  * services and configuration specific to Tapestry web application.
@@ -91,11 +93,10 @@ public class HibernateModule
         if (!provideEncoders)
             return;
 
-        for (ClassMetadata classMetadata : sessionSource.getSessionFactory().getAllClassMetadata()
-                .values())
+        for (EntityType entityType : sessionSource.getSessionFactory().getMetamodel().getEntities())
         {
-            final Class entityClass = classMetadata.getMappedClass();
-            final String idenfierPropertyName = classMetadata.getIdentifierPropertyName();
+            final Class entityClass = entityType.getJavaType();
+            final String idenfierPropertyName = entityType.getName();
 
             if (entityClass != null)
             {
@@ -162,9 +163,9 @@ public class HibernateModule
         if (!entitySessionStatePersistenceStrategyEnabled)
             return;
 
-        for (ClassMetadata classMetadata : sessionSource.getSessionFactory().getAllClassMetadata().values())
+        for (EntityType entityType : sessionSource.getSessionFactory().getMetamodel().getEntities())
         {
-            final Class entityClass = classMetadata.getMappedClass();
+            final Class entityClass = entityType.getJavaType();
             configuration.add(entityClass, new ApplicationStateContribution(HibernatePersistenceConstants.ENTITY));
         }
     }

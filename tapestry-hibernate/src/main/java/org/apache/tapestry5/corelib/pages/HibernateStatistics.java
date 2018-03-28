@@ -60,13 +60,6 @@ public class HibernateStatistics
         return session.getSessionFactory().getStatistics();
     }
 
-
-    @SuppressWarnings("unchecked")
-    public Collection<ClassMetadata> getAllClassMetadata()
-    {
-        return session.getSessionFactory().getAllClassMetadata().values();
-    }
-
     public EntityStatistics getEntityStatistics()
     {
         return getStatistics().getEntityStatistics(currentEntityName);
