@@ -95,7 +95,7 @@ public class HibernateCoreModule
     {
         HibernateSessionManagerImpl service = new HibernateSessionManagerImpl(sessionSource);
 
-        perthreadManager.addThreadCleanupListener(service);
+        perthreadManager.addThreadCleanupCallback(service);
 
         return service;
     }

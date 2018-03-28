@@ -49,7 +49,7 @@ public class HibernateSessionSourceImpl implements HibernateSessionSource
 
         logger.info(String.format("Hibernate startup: %,d ms to configure, %,d ms overall.", configurationComplete - startTime, factoryCreated - startTime));
 
-        logger.info(String.format("Configured Hibernate entities: %s", InternalUtils.joinSorted(sessionFactory.getAllClassMetadata().keySet())));
+        logger.info(String.format("Configured Hibernate entities: %s", InternalUtils.joinSorted(sessionFactory.getMetamodel().getEntities())));
     }
 
     @PostInjection

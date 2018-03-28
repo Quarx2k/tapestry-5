@@ -20,7 +20,7 @@ import org.apache.tapestry5.ioc.services.ThreadCleanupListener;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class HibernateSessionManagerImpl implements HibernateSessionManager, ThreadCleanupListener
+public class HibernateSessionManagerImpl implements HibernateSessionManager, Runnable
 {
     private final Session session;
 
@@ -64,8 +64,7 @@ public class HibernateSessionManagerImpl implements HibernateSessionManager, Thr
      * should persist.
      */
     @Override
-    public void threadDidCleanup()
-    {
+    public void run() {
         transaction.rollback();
 
         session.close();
