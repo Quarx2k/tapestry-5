@@ -437,10 +437,12 @@ task continuousIntegration {
     description "Task executed on Jenkins CI server after SVN commits"
 }
 
+/*
 task wrapper(type: Wrapper) {
     gradleVersion = '4.3.1'
     description "Regenerates the Gradle Wrapper files"
 }
+*/
 
 task zippedSources(type: Zip) {
     description "Creates a combined Zip file of all sub-project's sources"

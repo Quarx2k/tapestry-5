@@ -1,5 +1,6 @@
 import org.apache.tools.ant.filters.FixCrLfFilter
 import org.apache.tools.ant.filters.ReplaceTokens
+import org.apache.tools.ant.taskdefs.condition.Os
 
 task copyGradleWrapper(type: Copy) {
     ext.srcDir = file("$buildDir/wrapper")
@@ -15,7 +16,7 @@ task copyGradleWrapper(type: Copy) {
 
 task addGradleWrapper(type: Exec) {
     workingDir "$buildDir/wrapper"
-    commandLine "${rootProject.projectDir}/gradlew", 'wrapper', '--gradle-version', '5.2'
+    commandLine "${rootProject.projectDir}\\" + (isWindows() ? 'gradlew.bat' : 'gradlew'), 'wrapper', '--gradle-version', '5.5.1'
 
     standardOutput = new ByteArrayOutputStream()
 
